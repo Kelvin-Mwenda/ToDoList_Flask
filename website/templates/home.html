@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<!-- About Start -->
+<div class="container-xxl py-5 d-flex flex-row mb-3" id="About">
+    <div class="container d-flex flex-row mb-3">
+
+        <div class="col wow fadeIn justify-content-center mx-auto" data-wow-delay="0.5s">
+            <h1 class='fw-bold text-dark'>Welcome back <span id='user'></span>!</h1>
+
+            <div class="card text-bg-dark">
+                <img src="{{url_for('static',filename='img/choco2.jpg')}}" style='filter: brightness(40%);' alt='index intro picture' class='img-fluid card-img h-25'>
+                <div class="card-img-overlay text-center">
+                    <h5 class="card-title fw-bold text-info">Choc List</h5>
+                    <p class="card-text">
+                        Your sweet solution for task management. This delightfully simple web app helps you organize your daily to-dos with the ease of unwrapping a chocolate bar. Whether you're planning your workday, managing household chores, or outlining personal goals, Choco List offers a rich, smooth experience to create, prioritize, and complete tasks.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- About End -->
+
+{% endblock %}
