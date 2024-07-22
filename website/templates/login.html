@@ -3,9 +3,12 @@
 {% block title %}Login{% endblock %}
 
 {% block content %}
-<div class='container bg-white'>
-    <form method="POST">
-        <h3 align="center" class='text-info fw-bold'>Login</h3>
+<div class='container h-75 bg-white rounded position-relative border border-info border-1 shadow-lg mb-5'>
+    <a href='/' target='_self'>
+        <button class="position-absolute top-0 start-0 translate-middle badge rounded-pill px-2  text-white btn btn-info">Home</button>
+    </a>
+    <form method="POST" class='mx-auto justify-content-middle'>
+        <h2 align="center" class='text-info fw-bold mb-5'>Login</h2>
         <div class="form-group">
             <label for="email" class="lead">Email Address</label>
             <input type="email" class="form-control" id="email" name="email" placeholder="Enter email">
@@ -15,14 +18,11 @@
             <label for="password" class="lead">Enter Password</label>
             <input type="password" class="form-control" id="password" name="password" placeholder="Enter Password">
         </div>
-
-        <div class="mb-3 ms-3 form-group">
-            <input type="checkbox" class="form-check-input" id="check">
-            <label class="form-check-label" for="check">Check me out</label>
-        </div>
         <br>
 
-        <button type="submit" class="btn btn-primary lead">Login</button>
+        <div class='text-center'>
+            <button type="submit" class="btn btn-info lead">Login</button>
+        </div>
     </form>
 </div>
 

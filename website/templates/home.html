@@ -4,25 +4,38 @@
 
 {% block content %}
 <!-- About Start -->
-<div class="container-xxl py-5 d-flex flex-row mb-3" id="About">
+<div class='text-center'>
+    <h1 class='fw-bold text-dark'>Welcome back <span id='user'>{{current_user.name}}</span>!</h1>
+</div>
+<div class="container-xxl py-5 d-flex flex-row mb-3 border border-1 border-info rounded" id="About">
     <div class="container d-flex flex-row mb-3">
-
         <div class="col wow fadeIn justify-content-center mx-auto" data-wow-delay="0.5s">
-            <h1 class='fw-bold text-dark'>Welcome back <span id='user'></span>!</h1>
-
-            <div class="card text-bg-dark">
-                <img src="{{url_for('static',filename='img/choco2.jpg')}}" style='filter: brightness(40%);' alt='index intro picture' class='img-fluid card-img h-25'>
-                <div class="card-img-overlay text-center">
-                    <h5 class="card-title fw-bold text-info">Choc List</h5>
-                    <p class="card-text">
-                        Your sweet solution for task management. This delightfully simple web app helps you organize your daily to-dos with the ease of unwrapping a chocolate bar. Whether you're planning your workday, managing household chores, or outlining personal goals, Choco List offers a rich, smooth experience to create, prioritize, and complete tasks.
-                    </p>
-                </div>
-            </div>
+            <p class='fw-bold text-info text-center'>Add a task...</p>
+            <form method='POST' class="d-flex flex-row mb-3">
+                <textarea name='event' id='event' class='form-control p-2 shadow-lg'></textarea>
+                <button type='submit' class='btn btn-info p-2 ms-3'>Add Task </button>
+            </form>
         </div>
 
     </div>
 </div>
 <!-- About End -->
+
+<div class="container-xxl py-5 mb-3 border border-1 border-dark rounded text-center bg-light" id="About">
+    <p class='fw-bold text-info text-center fw-bold'>My List!</p>
+
+    <div class='container mx-auto'>
+        <ul class='list-group list-group-flush' id='notes'>
+            {% for event in current_user.events %}
+                <li class='list-group-item'>
+                    {{event.event}}
+                    <button type="button" class="close btn btn-danger rounded-pill fw-bold text-dark fs-4" onclick="deleteEvent({{event.id}})" data-dismiss="alert" aria-label="close">
+                        <span aria-hidden="true" class='fw-bold text-dark fs-4'>&times;</span>
+                    </button>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
 
 {% endblock %}

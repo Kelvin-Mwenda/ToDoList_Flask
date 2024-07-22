@@ -13,18 +13,19 @@ def index():
 
 
 @views.route('/home',methods=['GET','POST'])
+@login_required
 def home():
     if request.method == 'POST':
         event = request.form.get('event')
         if len(event) < 2:
             flash('The event has to have at least two characters!',category='error')
         else:
-            new_event = Event(data=event, user_id=current_user.id)
+            new_event = Event(event=event, user_id=current_user.id)
             db.session.add(new_event)
             db.session.commit()
             flash('Event added successfully!',category='success')
             
-    return render_template('home.html')
+    return render_template('home.html', current_user=current_user)
 
 @views.route('/delete-event',methods=['POST'])
 def delete_event():
