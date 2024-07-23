@@ -13,6 +13,6 @@ class User(db.Model,UserMixin):
 class Event(db.Model):
     id=db.Column(db.Integer, primary_key=True)
     event=db.Column(db.String(1000))
-    date=db.Column(db.DateTime(timezone=True),default=func.now())
+    date = db.Column(db.Date)
     user_id=db.Column(db.Integer,db.ForeignKey('user.id'))
     

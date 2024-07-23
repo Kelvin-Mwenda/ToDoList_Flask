@@ -17,10 +17,11 @@ def index():
 def home():
     if request.method == 'POST':
         event = request.form.get('event')
+        date = request.form.get('date')
         if len(event) < 2:
             flash('The event has to have at least two characters!',category='error')
         else:
-            new_event = Event(event=event, user_id=current_user.id)
+            new_event = Event(event=event, date=date, user_id=current_user.id)
             db.session.add(new_event)
             db.session.commit()
             flash('Event added successfully!',category='success')

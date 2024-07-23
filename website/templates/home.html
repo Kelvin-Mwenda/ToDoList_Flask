@@ -7,13 +7,14 @@
 <div class='text-center'>
     <h1 class='fw-bold text-dark'>Welcome back <span id='user'>{{current_user.name}}</span>!</h1>
 </div>
-<div class="container-xxl py-5 d-flex flex-row mb-3 border border-1 border-info rounded" id="About">
+<div class="container-xxl py-5 d-flex flex-row mb-3 border border-1 border-info rounded bg-dark" id="About">
     <div class="container d-flex flex-row mb-3">
         <div class="col wow fadeIn justify-content-center mx-auto" data-wow-delay="0.5s">
-            <p class='fw-bold text-info text-center'>Add a task...</p>
-            <form method='POST' class="d-flex flex-row mb-3">
-                <textarea name='event' id='event' class='form-control p-2 shadow-lg'></textarea>
-                <button type='submit' class='btn btn-info p-2 ms-3'>Add Task </button>
+            <h4 class='fw-bold text-white text-center'>Add a task...</h4>
+            <form method='POST' class="d-flex mb-3">
+                <input type='text' name='event' id='event' placeholder='Task activity' class='form-control shadow-lg col-4 rounded'/>
+                <input type="date" class="form-control col-4 rounded ms-1" id='date' name='date'>
+                <button type='submit' class='form-control col-4 btn btn-info rounded ms-1'>Add</button>
             </form>
         </div>
 
@@ -24,14 +25,17 @@
 <div class="container-xxl py-5 mb-3 border border-1 border-dark rounded text-center bg-light" id="About">
     <p class='fw-bold text-info text-center fw-bold'>My List!</p>
 
-    <div class='container mx-auto'>
+    <div class='container'>
         <ul class='list-group list-group-flush' id='notes'>
             {% for event in current_user.events %}
-                <li class='list-group-item'>
-                    {{event.event}}
-                    <button type="button" class="close btn btn-danger rounded-pill fw-bold text-dark fs-4" onclick="deleteEvent({{event.id}})" data-dismiss="alert" aria-label="close">
-                        <span aria-hidden="true" class='fw-bold text-dark fs-4'>&times;</span>
-                    </button>
+                <li class='list-group-item d-flex'>
+                    <div class="col-4">{{event.event}}</div>
+                    <div class="col-4" format='%Y, %M, %d'>{{event.date}}</div>
+                    <div class="col-4">
+                        <button type="button" class="delete-button btn btn-danger rounded text-white" onclick="deleteEvent({{event.id}})">
+                            Completed
+                        </button>
+                    </div>  
                 </li>
             {% endfor %}
         </ul>
