@@ -3,6 +3,8 @@ from flask_login import login_required, current_user
 from . import db
 from .models import Event
 import json
+from datetime import datetime, date, timedelta
+
 
 views = Blueprint('views',__name__)
 
@@ -16,17 +18,29 @@ def index():
 @login_required
 def home():
     if request.method == 'POST':
-        event = request.form.get('event')
-        date = request.form.get('date')
+        data = request.get_json()
+        event = data.get('event')
+        date_task = data.get('date')
+        print(f"Received date: {date}")
+        
         if len(event) < 2:
-            flash('The event has to have at least two characters!',category='error')
+            flash('The event has to have at least two characters!', category='error')
         else:
-            new_event = Event(event=event, date=date, user_id=current_user.id)
-            db.session.add(new_event)
-            db.session.commit()
-            flash('Event added successfully!',category='success')
-            
-    return render_template('home.html', current_user=current_user)
+            try:
+                # Correctly parse the datetime if it includes a time part
+                date = date.strptime(date_task, '%Y-%m-%d').date()
+                #date = datetime.fromisoformat(date_task,'%d-%m-%Y').date()
+                new_event = Event(event=event, date=date, user_id=current_user.id)
+                db.session.add(new_event)
+                db.session.commit()
+                flash('Event added successfully!', category='success')
+            except ValueError as e:
+                # Log the error for debugging
+                print(f"ValueError: {e}")
+                return {"error": "Invalid date format. Use YYYY-MM-DD."}, 400
+                flash('Invalid date format!', category='error')
+    
+    return render_template('home.html')
 
 @views.route('/delete-event',methods=['POST'])
 def delete_event():
