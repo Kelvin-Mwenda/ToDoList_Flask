@@ -1,7 +1,7 @@
 from . import db
 from flask_login import UserMixin
 from sqlalchemy.sql import func
-from datetime import datetime
+from datetime import datetime,date, timedelta
 
 
 
@@ -15,6 +15,6 @@ class User(db.Model,UserMixin):
 class Event(db.Model):
     id=db.Column(db.Integer, primary_key=True)
     event=db.Column(db.String(1000))
-    date = db.Column(db.Date,nullable=False)
+    date = db.Column(db.Date)
     user_id=db.Column(db.Integer,db.ForeignKey('user.id'))
     

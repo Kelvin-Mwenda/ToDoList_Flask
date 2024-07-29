@@ -28,8 +28,9 @@ def home():
         else:
             try:
                 # Correctly parse the datetime if it includes a time part
-                date = date.strptime(date_task, '%Y-%m-%d').date()
+                #date = date.strptime(date_task, '%Y-%m-%d').date()
                 #date = datetime.fromisoformat(date_task,'%d-%m-%Y').date()
+                date = datetime.strptime(date_task, '%Y-%m-%d %H:%M:%S').date()
                 new_event = Event(event=event, date=date, user_id=current_user.id)
                 db.session.add(new_event)
                 db.session.commit()
