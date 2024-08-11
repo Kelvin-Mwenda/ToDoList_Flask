@@ -3,43 +3,45 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-<!-- About Start -->
-<div class='text-center'>
-    <h1 class='fw-bold text-dark'>Welcome back <span id='user'>{{current_user.name}}</span>!</h1>
-</div>
-<div class="container-xxl py-5 d-flex flex-row mb-3 border border-1 border-info rounded bg-dark" id="About">
-    <div class="container d-flex flex-row mb-3">
-        <div class="col wow fadeIn justify-content-center mx-auto" data-wow-delay="0.5s">
-            <h4 class='fw-bold text-white text-center'>Add a task...</h4>
-            <form method='POST' class="d-flex row mb-3">
-                <input type='text' name='event' id='event' placeholder='Task activity' class='form-control shadow-lg col rounded'/>
-                <input type="date" class="form-control col rounded ms-1" id='date' name='date'>
-                <button type='submit' class='form-control col btn btn-info rounded ms-1' id='addTaskButton'>Add</button>
-            </form>
+    <!-- About Start -->
+    <div class='text-center'>
+        <h1 class='fw-bold text-dark'>Welcome <span id='user'>{{current_user.name}}</span>!</h1>
+    </div>
+
+    <div class="container-xxl py-5 d-flex flex-row mb-3 border border-1 border-info rounded bg-dark" id="About">
+        <div class="container d-flex flex-row mb-3">
+            <div class="col wow fadeIn justify-content-center mx-auto" data-wow-delay="0.5s">
+                <h4 class='fw-bold text-white text-center'>Add a task...</h4>
+                <form method='POST' class="d-flex row mb-3">
+                    <input type='text' name='event' id='event' placeholder='Task activity' class='form-control shadow-lg col rounded'/>
+                    <input type="date" class="form-control col rounded ms-1" id='date' name='date'>
+                    <button type='submit' class='form-control col btn btn-info rounded ms-1' value = 'submit'>Add</button>
+                </form>
+            </div>
+
         </div>
-
     </div>
-</div>
-<!-- About End -->
+    <!-- About End -->
 
-<div class="container-xxl py-5 mb-3 border border-1 border-dark rounded text-center bg-light" id="About">
-    <p class='fw-bold text-info text-center fw-bold'>My List!</p>
+    <div class="container-xxl py-5 mb-3 border border-1 border-dark rounded text-center bg-light" id="About">
+        <p class='fw-bold text-info text-center fw-bold'>My List!</p>
+        <hr>
 
-    <div class='container'>
-        <ul class='list-group list-group-flush' id='notes'>
-            {% for event in current_user.events %}
-                <li class='list-group-item d-flex'>
-                    <div class="col-4">{{event.event}}</div>
-                    <div class="col-4">{{event.date}}</div>
-                    <div class="col-4">
-                        <button type="button" class="delete-button btn btn-danger rounded text-white" onclick="deleteEvent({{event.id}})">
-                            Completed
-                        </button>
-                    </div>  
-                </li>
-            {% endfor %}
-        </ul>
+        <div class='container'>
+            <ul class='list-group list-group-flush' id='notes'>
+                {% for event in current_user.events %}
+                    <li class='list-group-item d-flex'>
+                        <div class="col-4">{{event.event}}</div>
+                        <div class="col-4">{{event.date}}</div>
+                        <div class="col-4">
+                            <button type="button" class="delete-button btn btn-danger rounded text-white" onclick="deleteEvent({{event.id}})">
+                                Completed
+                            </button>
+                        </div>  
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
     </div>
-</div>
 
 {% endblock %}

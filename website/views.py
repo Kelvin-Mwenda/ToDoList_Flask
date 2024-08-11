@@ -1,5 +1,6 @@
 from flask import Blueprint, jsonify, render_template, request, url_for, redirect, request,flash
 from flask_login import login_required, current_user
+#from wtforms import Form, StringField, TextField,EmailField, PasswordField,DateField
 from . import db
 from .models import Event
 import json
@@ -14,35 +15,63 @@ def index():
     return render_template('index.html')
 
 
-@views.route('/home',methods=['GET','POST'])
+# @views.route('/home',methods=['GET','POST'])
+# @login_required
+# def home():
+#     if request.method == 'POST':
+#         event = request.form.get('event')
+#         date = request.form.get('date')
+#         print(f"Received date: {date}")
+        
+#         if len(event) < 2:
+#             flash('The event has to have at least two characters!', category='error')
+#         else:
+#             try:
+#                 # Correctly parse the datetime if it includes a time part
+#                 start_date_obj = datetime.strptime(date, '%Y-%m-%d')
+#                 date = start_date_obj.strftime('%b %d, %Y').date()
+#                 print(f"Formatted Date: {date}")
+#                 new_event = Event(event=event, date=date, user_id=current_user.id)
+#                 db.session.add(new_event)
+#                 db.session.commit()
+#                 flash('Event added successfully!', category='success')
+#                 return jsonify({"message": "Data received", "data": data}), 200
+#             except ValueError as e:
+#                 # Log the error for debugging
+#                 print(f"ValueError: {e}")
+#                 return f"ValueError: {e}",400
+#                 flash('Invalid data format!', category='error')
+#     else:
+#         return render_template('home.html')
+
+@views.route('/home', methods=['GET', 'POST'])
 @login_required
 def home():
     if request.method == 'POST':
-        data = request.get_json()
-        event = data.get('event')
-        date_task = data.get('date')
-        print(f"Received date: {date}")
+        event = request.form.get('event')
+        date_str = request.form.get('date')  # Change variable name to avoid conflict with built-in 'date'
+        print(f"Received date: {date_str}")
         
         if len(event) < 2:
             flash('The event has to have at least two characters!', category='error')
         else:
             try:
                 # Correctly parse the datetime if it includes a time part
-                #date = datetime.strptime(date_task, '%Y-%m-%d %H:%M:%S').date()
-                start_date_obj = datetime.strptime(start_date, '%Y-%m-%d')
-                date = start_date_obj.strftime('%b %d, %Y')
-                print(f"Formatted Date: {date}")
-                new_event = Event(event=event, date=date, user_id=current_user.id)
+                start_date_obj = datetime.strptime(date_str, '%Y-%m-%d')  # Keep it as a datetime object
+                date_obj = start_date_obj.date()  # Get the date part as a date object
+                print(f"Formatted Date: {date_obj}")
+                
+                new_event = Event(event=event, date=date_obj, user_id=current_user.id)
                 db.session.add(new_event)
                 db.session.commit()
-                flash('Event added successfully!', category='success')
+                return render_template('home.html')
             except ValueError as e:
                 # Log the error for debugging
                 print(f"ValueError: {e}")
-                return {"error": "Invalid date format. Use YYYY-MM-DD."}, 400
-                flash('Invalid date format!', category='error')
-    
-    return render_template('home.html')
+                flash('Invalid data format!', category='error')
+                return f"ValueError: {e}", 400
+    else:
+        return render_template('home.html')
 
 @views.route('/delete-event',methods=['POST'])
 def delete_event():
