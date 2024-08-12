@@ -13,8 +13,8 @@
             <div class="col wow fadeIn justify-content-center mx-auto" data-wow-delay="0.5s">
                 <h4 class='fw-bold text-white text-center'>Add a task...</h4>
                 <form method='POST' class="d-flex row mb-3">
-                    <input type='text' name='event' id='event' placeholder='Task activity' class='form-control shadow-lg col rounded'/>
-                    <input type="date" class="form-control col rounded ms-1" id='date' name='date'>
+                    <input type='text' name='event' id='event' placeholder='Task activity' class='form-control shadow-lg col rounded mb-3'/>
+                    <input type="date" class="form-control col rounded ms-1 mb-3" id='date' name='date'>
                     <button type='submit' class='form-control col btn btn-info rounded ms-1' value = 'submit'>Add</button>
                 </form>
             </div>
@@ -28,7 +28,7 @@
         <hr>
 
         <div class='container'>
-            <ul class='list-group list-group-flush' id='notes'>
+            <ul class='list-group list-group-flush overflow-y-scroll overflow-x-scroll' id='notes'>
                 {% for event in current_user.events %}
                     <li class='list-group-item d-flex'>
                         <div class="col-4">{{event.event}}</div>
