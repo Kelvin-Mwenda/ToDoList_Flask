@@ -86,19 +86,19 @@
                     {% if category == 'error' %}
                         <div class="alert alert-danger alert-dismissable fade show" role="alert">
                             {{message}}
-                            <button type="button" class="close px-5 left-0 btn btn-danger text-dark ms-5 fw-bold fs-4 rounded-pill" data-dismiss="alert" aria-label="close"><span aria-hidden="true">&times;</span></button>
+                            <button type="button" class="close px-auto left-0 text-dark fw-bold fs-4 rounded-pill" data-dismiss="alert" aria-label="close"><span aria-hidden="true">&times;</span></button>
                         </div>
                     {% else %}
                         <div class="alert alert-success alert-dismissable fade show" role="alert">
                         {{message}}
-                        <button type="button" class="w-25 close left-0 btn btn-danger fw-bold text-dark fs-4" data-dismiss="alert" aria-label="close"><span aria-hidden="true">&times;</span></button>
+                        <button type="button" class="close left-0 fw-bold text-dark fs-4 rounded-pill" data-dismiss="alert" aria-label="close"><span aria-hidden="true">&times;</span></button>
                         </div>
                     {% endif %}
                 {% endfor %}
             {% endif %}
         {% endwith %}
 
-        <div class='w-50 mx-auto'>
+        <div class='w-50 mx-auto content'>
             {% block content %}
             {% endblock %}
         </div>

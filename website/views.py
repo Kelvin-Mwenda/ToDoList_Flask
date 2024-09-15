@@ -14,36 +14,6 @@ views = Blueprint('views',__name__)
 def index():
     return render_template('index.html')
 
-
-# @views.route('/home',methods=['GET','POST'])
-# @login_required
-# def home():
-#     if request.method == 'POST':
-#         event = request.form.get('event')
-#         date = request.form.get('date')
-#         print(f"Received date: {date}")
-        
-#         if len(event) < 2:
-#             flash('The event has to have at least two characters!', category='error')
-#         else:
-#             try:
-#                 # Correctly parse the datetime if it includes a time part
-#                 start_date_obj = datetime.strptime(date, '%Y-%m-%d')
-#                 date = start_date_obj.strftime('%b %d, %Y').date()
-#                 print(f"Formatted Date: {date}")
-#                 new_event = Event(event=event, date=date, user_id=current_user.id)
-#                 db.session.add(new_event)
-#                 db.session.commit()
-#                 flash('Event added successfully!', category='success')
-#                 return jsonify({"message": "Data received", "data": data}), 200
-#             except ValueError as e:
-#                 # Log the error for debugging
-#                 print(f"ValueError: {e}")
-#                 return f"ValueError: {e}",400
-#                 flash('Invalid data format!', category='error')
-#     else:
-#         return render_template('home.html')
-
 @views.route('/home', methods=['GET', 'POST'])
 @login_required
 def home():
